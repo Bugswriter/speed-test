@@ -19,19 +19,21 @@ const downloadData = async (bytes) => {
 };
 
 
-const one_mega_bit = 1000000 // 1 MegaBit
+const MB1 = 1000000 // 1 MegaBit
+const MB100 = MB1 * 100
+var TTS = 0
 async function speedTest() {
-    var s, e, t
-    var tt = 0
+    var s, e
+    var total_time_in_sec = 0
     for (var i = 0; i < 10; i++) {
         s = performance.now()
-	await
-	await downloadData(one_mega_bit * 100) // # 100MB
+	await downloadData(MB100)
         e = performance.now()
-        t = e - s
-        tt += t
+	TTS += (e-s)*0.001
     }
-    console.log((one_mega_bit * 100 * 10) / tt)
+    console.log(TTS)
+    const speed = (MB100 * 10) / TTS
+    console.log(speed)
 }
 
 speedTest()
